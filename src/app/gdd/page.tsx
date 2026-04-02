@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { GlobalNav } from "../components/GlobalNav";
+import GlobalNav from "../components/GlobalNav";
 import { GDDCard, GDDSectionHeader } from "../components/gdd/GDDCard";
 import { GDDCategory } from "@/types/gdd";
 import {
@@ -12,7 +12,6 @@ import {
   FileText,
   Mic,
   Unlock,
-  MoveVertical,
 } from "lucide-react";
 
 export default function GDDPage() {
@@ -24,7 +23,6 @@ export default function GDDPage() {
   return (
     <main className="min-h-screen bg-surface text-ink p-8">
       <div className="max-w-5xl mx-auto">
-        {/* Header Identik dengan Crafting Guide untuk Branding Consistency */}
         <header className="flex flex-wrap items-end justify-between gap-4 mb-10 pb-5 border-b border-bdr-2">
           <div>
             <p className="font-mono text-[10px] text-lime tracking-[.18em] uppercase mb-1">
@@ -44,7 +42,6 @@ export default function GDDPage() {
         <GlobalNav />
 
         <div className="space-y-12">
-          {/* Section 01: Core */}
           {isVisible("core") && (
             <section className="animate-in fade-in slide-in-from-bottom-2 duration-300">
               <GDDSectionHeader icon="Target" title="01. Game Concept" />
@@ -73,7 +70,6 @@ export default function GDDPage() {
             </section>
           )}
 
-          {/* Section 02: Traversal */}
           {isVisible("traversal") && (
             <section className="animate-in fade-in slide-in-from-bottom-2 duration-300">
               <GDDSectionHeader
@@ -105,7 +101,6 @@ export default function GDDPage() {
             </section>
           )}
 
-          {/* Section 03: World */}
           {isVisible("world") && (
             <section className="animate-in fade-in slide-in-from-bottom-2 duration-300">
               <GDDSectionHeader icon="Layers" title="03. Environment & Story" />

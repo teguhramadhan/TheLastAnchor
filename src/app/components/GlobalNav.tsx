@@ -1,10 +1,11 @@
 "use client";
 
+import React from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { LayoutGrid, FileText, Zap, Terminal } from "lucide-react";
 
-export const GlobalNav = () => {
+export default function GlobalNav() {
   const pathname = usePathname();
 
   const navLinks = [
@@ -13,11 +14,11 @@ export const GlobalNav = () => {
   ];
 
   return (
-    <nav className="fixed top-0 left-0 w-full z-[100] bg-surface/80 backdrop-blur-md border-b border-bdr-2">
-      <div className="max-w-6xl mx-auto px-12">
+    <nav className="fixed top-0 left-0 w-full z-[100] bg-surface/80 backdrop-blur-md border-b border-bdr-2 font-mono transition-all">
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 md:px-12">
         <div className="flex items-center justify-between h-14">
-          {/* Links Area */}
-          <div className="flex items-center gap-1 h-full">
+          {/* NAV LINKS: Scrollable Horizontal di Mobile */}
+          <div className="flex items-center gap-1 h-full overflow-x-auto no-scrollbar scroll-smooth flex-1 justify-center">
             {navLinks.map((link) => {
               const isActive = pathname === link.href;
               const Icon = link.icon;
@@ -27,7 +28,7 @@ export const GlobalNav = () => {
                   key={link.href}
                   href={link.href}
                   className={`
-                    flex items-center gap-2 px-4 h-14 font-condensed text-[13px] uppercase tracking-wider transition-all relative
+                    flex items-center gap-2 px-3 sm:px-4 h-14 font-condensed text-[12px] sm:text-[13px] uppercase tracking-wider transition-all relative whitespace-nowrap
                     ${
                       isActive
                         ? "text-lime bg-surface-2 border-x border-bdr"
@@ -39,9 +40,9 @@ export const GlobalNav = () => {
                     size={14}
                     className={isActive ? "text-lime" : "text-ink-4"}
                   />
-                  {link.name}
+                  <span>{link.name}</span>
 
-                  {/* Active Indicator Line */}
+                  {/* Indicator Line */}
                   {isActive && (
                     <div className="absolute bottom-[-1px] left-0 w-full h-[2px] bg-lime shadow-[0_-2px_10px_rgba(144,184,58,0.5)]" />
                   )}
@@ -53,4 +54,4 @@ export const GlobalNav = () => {
       </div>
     </nav>
   );
-};
+}

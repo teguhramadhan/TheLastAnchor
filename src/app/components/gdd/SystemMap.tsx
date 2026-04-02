@@ -2,7 +2,6 @@
 
 import React from "react";
 
-// --- DATA DEFINITIONS ---
 type Category =
   | "survival"
   | "traversal"
@@ -59,48 +58,11 @@ const SYSTEM_NODES = [
     y: 32,
     wide: true,
   },
-  {
-    id: "v_link",
-    title: "Vertical link",
-    sub: "",
-    cat: "traversal",
-    x: 15,
-    y: 56,
-    wide: false,
-  },
-  {
-    id: "mechanical",
-    title: "Mechanical",
-    sub: "",
-    cat: "traversal",
-    x: 35,
-    y: 56,
-    wide: false,
-  },
-  {
-    id: "gather",
-    title: "Resource gathering",
-    cat: "crafting",
-    x: 50,
-    y: 56,
-    wide: false,
-  },
-  {
-    id: "item",
-    title: "Item creation",
-    cat: "crafting",
-    x: 70,
-    y: 56,
-    wide: false,
-  },
-  {
-    id: "env_story",
-    title: "Env. storytelling",
-    cat: "story",
-    x: 85,
-    y: 56,
-    wide: false,
-  },
+  { id: "v_link", title: "Vertical link", cat: "traversal", x: 15, y: 56 },
+  { id: "mechanical", title: "Mechanical", cat: "traversal", x: 35, y: 56 },
+  { id: "gather", title: "Resource gathering", cat: "crafting", x: 50, y: 56 },
+  { id: "item", title: "Item creation", cat: "crafting", x: 70, y: 56 },
+  { id: "env_story", title: "Env. storytelling", cat: "story", x: 85, y: 56 },
   {
     id: "l_design",
     title: "Level design",
@@ -149,65 +111,71 @@ export default function SystemMap() {
   const getNode = (id: string) => SYSTEM_NODES.find((n) => n.id === id);
 
   return (
-    <div className="w-full select-none font-mono">
-      {/* Container Diagram dengan Aspect Ratio Tetap */}
-      <div className="relative aspect-[16/10] w-full max-w-5xl mx-auto border border-[#252825] bg-[#0e0f0e]/50 overflow-hidden">
-        {/* SVG Lines - Layer paling bawah */}
-        <svg
-          className="absolute inset-0 w-full h-full pointer-events-none"
-          viewBox="0 0 100 100"
-          preserveAspectRatio="none"
-        >
-          {CONNECTIONS.map(([src, dst], i) => {
-            const s = getNode(src);
-            const d = getNode(dst);
-            if (!s || !d) return null;
-            return (
-              <line
-                key={i}
-                x1={s.x}
-                y1={s.y}
-                x2={d.x}
-                y2={d.y}
-                stroke="#252825"
-                strokeWidth="0.15"
-              />
-            );
-          })}
-        </svg>
-
-        {/* Nodes - Layer atas */}
-        {SYSTEM_NODES.map((node) => (
-          <div
-            key={node.id}
-            className={`absolute -translate-x-1/2 -translate-y-1/2 border flex flex-col items-center justify-center text-center p-2 transition-colors
-              ${CAT_STYLES[node.cat as Category]}
-              ${node.wide ? "w-[180px] h-[60px]" : "w-[140px] h-[44px]"}
-            `}
-            style={{ left: `${node.x}%`, top: `${node.y}%` }}
+    <div className="w-full py-8 font-mono select-none">
+      {/* Wrapper Scrollable untuk Mobile */}
+      <div className="w-full overflow-x-auto no-scrollbar cursor-grab active:cursor-grabbing border border-[#252825] bg-[#0e0f0e]/50">
+        {/* Canvas dengan ukuran minimal di mobile agar tidak gepeng */}
+        <div className="relative min-w-[800px] md:min-w-full aspect-[16/10] overflow-hidden">
+          {/* SVG Lines */}
+          <svg
+            className="absolute inset-0 w-full h-full pointer-events-none"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="none"
           >
-            <span className="text-[10px] font-bold uppercase tracking-wider leading-none truncate w-full px-1">
-              {node.title}
-            </span>
-            {node.sub && (
-              <span className="text-[8px] opacity-60 mt-1 uppercase tracking-tighter truncate w-full px-1">
-                {node.sub}
-              </span>
-            )}
-          </div>
-        ))}
-      </div>
+            {CONNECTIONS.map(([src, dst], i) => {
+              const s = getNode(src);
+              const d = getNode(dst);
+              if (!s || !d) return null;
+              return (
+                <line
+                  key={i}
+                  x1={s.x}
+                  y1={s.y}
+                  x2={d.x}
+                  y2={d.y}
+                  stroke="#252825"
+                  strokeWidth="0.15"
+                />
+              );
+            })}
+          </svg>
 
-      {/* Legend & Footer */}
-      <div className="mt-8 flex flex-col items-center gap-6">
-        <div className="flex flex-wrap justify-center gap-x-6 gap-y-3 text-[9px] text-ink-4 uppercase tracking-[0.2em]">
-          {(Object.keys(CAT_STYLES) as Category[]).map((cat) => (
-            <div key={cat} className="flex items-center gap-2">
-              <div className={`w-4 h-4 border ${CAT_STYLES[cat]}`} />
-              <span className="text-white">{cat}</span>
+          {/* Nodes */}
+          {SYSTEM_NODES.map((node) => (
+            <div
+              key={node.id}
+              className={`absolute -translate-x-1/2 -translate-y-1/2 border flex flex-col items-center justify-center text-center p-2
+                ${CAT_STYLES[node.cat as Category]}
+                ${node.wide ? "w-[160px] h-[54px] md:w-[180px] md:h-[60px]" : "w-[120px] h-[40px] md:w-[140px] md:h-[44px]"}
+              `}
+              style={{ left: `${node.x}%`, top: `${node.y}%` }}
+            >
+              <span className="text-[9px] md:text-[10px] font-bold uppercase tracking-wider leading-none truncate w-full px-1">
+                {node.title}
+              </span>
+              {node.sub && (
+                <span className="text-[7px] md:text-[8px] opacity-60 mt-1 uppercase tracking-tighter truncate w-full px-1">
+                  {node.sub}
+                </span>
+              )}
             </div>
           ))}
         </div>
+      </div>
+
+      {/* Info Tambahan Mobile */}
+      <p className="block md:hidden text-center text-[8px] text-[#383d33] mt-2 uppercase tracking-widest">
+        Swipe horizontal untuk melihat diagram lengkap
+      </p>
+
+      {/* Legend */}
+      <div className="mt-8 flex flex-wrap justify-center gap-x-6 gap-y-3 text-[9px] text-ink-4 uppercase tracking-[0.2em]">
+        {(Object.keys(CAT_STYLES) as Category[]).map((cat) => (
+          <div key={cat} className="flex items-center gap-2">
+            <div className={`w-2 h-2 border ${CAT_STYLES[cat]}`} />
+            <span>{cat}</span>
+          </div>
+        ))}
       </div>
     </div>
   );

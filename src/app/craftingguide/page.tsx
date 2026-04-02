@@ -58,7 +58,7 @@ export default function Home() {
             <p className="font-mono text-[10px] text-lime tracking-[.18em] uppercase mb-1">
               // crafting_database v1.0
             </p>
-            <h1 className="font-condensed text-5xl font-bold uppercase tracking-wide text-white leading-none">
+            <h1 className="font-condensed text-4xl font-bold uppercase tracking-wide text-white leading-none">
               THE Last<span className="text-lime">ANCHOR</span>
             </h1>
           </div>

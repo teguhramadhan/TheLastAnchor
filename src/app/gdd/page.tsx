@@ -29,7 +29,7 @@ export default function GDDPage() {
             <p className="font-mono text-[10px] text-lime tracking-[.18em] uppercase mb-1">
               // internal_project_doc v0.1
             </p>
-            <h1 className="font-condensed text-5xl font-bold uppercase tracking-wide text-white leading-none">
+            <h1 className="font-condensed text-4xl font-bold uppercase tracking-wide text-white leading-none">
               THE LAST<span className="text-lime">ANCHOR</span>
             </h1>
           </div>

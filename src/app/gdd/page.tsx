@@ -13,6 +13,7 @@ import {
   Mic,
   Unlock,
 } from "lucide-react";
+import SystemMap from "../components/gdd/SystemMap";
 
 export default function GDDPage() {
   const [activeFilter, setActiveFilter] = useState<GDDCategory>("all");
@@ -145,6 +146,11 @@ export default function GDDPage() {
               </div>
             </section>
           )}
+
+          <GDDSectionHeader icon="CirclePile" title="04. Architecture Map" />
+
+          {/* Panggil komponen Arsitektur Sistem di sini */}
+          <SystemMap />
         </div>
 
         <footer className="mt-20 pt-6 border-t border-bdr font-mono text-[10px] text-ink-4 flex justify-between uppercase tracking-widest">
